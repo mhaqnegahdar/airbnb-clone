@@ -3,8 +3,14 @@ import { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
+import { useAppDispatch } from "@/redux/hooks";
+import { onOpen } from "@/redux/modal/registerModalSlice";
 
 const UserMenu = () => {
+  //States
+  // Redux
+  const dispatch = useAppDispatch();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
@@ -26,10 +32,21 @@ const UserMenu = () => {
       </div>
 
       {isOpen && (
-        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
+        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm cursor-pointer">
           <>
-            <MenuItem label="Login" onClick={() => {}} />
-            <MenuItem label="Signup" onClick={() => {}} />
+            <MenuItem
+              label="Login"
+              onClick={() => {
+                setIsOpen(false);
+              }}
+            />
+            <MenuItem
+              label="Signup"
+              onClick={() => {
+                dispatch(onOpen());
+                setIsOpen(false);
+              }}
+            />
           </>
         </div>
       )}
