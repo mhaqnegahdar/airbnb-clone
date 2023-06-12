@@ -5,8 +5,11 @@ import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
 import { useAppDispatch } from "@/redux/hooks";
 import { onOpen } from "@/redux/modal/registerModalSlice";
+import { onOpen as onLoginOpen } from "@/redux/modal/loginModalSlice";
+import { NavBarProps } from "@/types";
+import { signOut } from "next-auth/react";
 
-const UserMenu = () => {
+const UserMenu = ({ currentUser }: NavBarProps) => {
   //States
   // Redux
   const dispatch = useAppDispatch();
@@ -33,21 +36,65 @@ const UserMenu = () => {
 
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm cursor-pointer">
-          <>
-            <MenuItem
-              label="Login"
-              onClick={() => {
-                setIsOpen(false);
-              }}
-            />
-            <MenuItem
-              label="Signup"
-              onClick={() => {
-                dispatch(onOpen());
-                setIsOpen(false);
-              }}
-            />
-          </>
+          {currentUser ? (
+            <>
+              <MenuItem
+                label="My trips"
+                onClick={() => {
+                  setIsOpen(false);
+                }}
+              />
+              <MenuItem
+                label="My favorites"
+                onClick={() => {
+                  setIsOpen(false);
+                }}
+              />
+              <MenuItem
+                label="My reservations"
+                onClick={() => {
+                  setIsOpen(false);
+                }}
+              />
+              <MenuItem
+                label="My properties"
+                onClick={() => {
+                  setIsOpen(false);
+                }}
+              />
+              <MenuItem
+                label="Airbnb my home"
+                onClick={() => {
+                  setIsOpen(false);
+                }}
+              />
+              <hr />
+              <MenuItem
+                label="Logout"
+                onClick={() => {
+                  signOut();
+                  setIsOpen(false);
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <MenuItem
+                label="Login"
+                onClick={() => {
+                  dispatch(onLoginOpen());
+                  setIsOpen(false);
+                }}
+              />
+              <MenuItem
+                label="Signup"
+                onClick={() => {
+                  dispatch(onOpen());
+                  setIsOpen(false);
+                }}
+              />
+            </>
+          )}
         </div>
       )}
     </div>

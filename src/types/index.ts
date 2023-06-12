@@ -1,4 +1,5 @@
 import { IconType } from "react-icons";
+import { User } from "@prisma/client";
 
 // Props
 export interface ContainerProps {
@@ -72,10 +73,25 @@ export interface InputProps {
   touched?: boolean;
 }
 
+export interface NavBarProps {
+  currentUser?: User | null;
+}
+
 // Form Initial Values
 export interface RegisterForm {
   name?: string;
   email?: string;
   password?: string;
   confirmPassword?: string;
+}
+
+export interface LoginForm {
+  email?: string;
+  password?: string;
+}
+
+// States
+// Define a type for the slice state
+export interface ModalState {
+  isOpen: boolean;
 }

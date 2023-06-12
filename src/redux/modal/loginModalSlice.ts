@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "@/redux/store";
 import { ModalState } from "@/types";
 
@@ -7,8 +7,8 @@ const initialState = {
   isOpen: false,
 } as ModalState;
 
-export const registerModalSlice = createSlice({
-  name: "registerModal",
+export const loginModal = createSlice({
+  name: "loginModal",
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
@@ -21,9 +21,9 @@ export const registerModalSlice = createSlice({
   },
 });
 
-export const { onOpen, onClose } = registerModalSlice.actions;
+export const { onOpen, onClose } = loginModal.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectIsOpen = (state: RootState) => state.registerModal.isOpen;
+export const selectIsOpen = (state: RootState) => state.loginModal.isOpen;
 
-export default registerModalSlice.reducer;
+export default loginModal.reducer;
