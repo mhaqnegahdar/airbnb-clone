@@ -9,4 +9,10 @@ export const registerSchema = object({
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
       "Must be at least 8 characters with 1 uppercase letter, and 1 number"
     ),
+  confirmPassword: string()
+    .required("Required!")
+    .matches(
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
+      "Must be at least 8 characters with 1 uppercase letter, and 1 number"
+    ),
 });
