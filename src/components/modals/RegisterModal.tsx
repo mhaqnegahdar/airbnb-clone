@@ -10,11 +10,7 @@ import { registerSchema } from "@/utils/validationSchema";
 import Input from "@/components/Input";
 import { RegisterForm } from "@/types";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import {
-  selectIsOpen,
-  onClose,
-  onOpen,
-} from "@/redux/modal/registerModalSlice";
+import { selectIsOpen, onClose } from "@/redux/modal/registerModalSlice";
 import Heading from "../Heading";
 import toast from "react-hot-toast";
 import Button from "../Button";
@@ -28,21 +24,38 @@ const RegisterModal = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Formik Functionality
-  const initialValues = { name: "", email: "", password: "" };
+  const initialValues = {
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  };
 
   const onSubmit = async (values: RegisterForm) => {
     setIsSubmitting(true);
 
+    // Password Confirm Check
+    if (values.password !== values.confirmPassword) {
+      toast.error("Password and its confirm doesn't match!");
+      return;
+    }
     // Register User
     axios
       .post("/api/register", values)
       .then((response) => {
         // OnSuccess
-        dispatch(onClose);
+        if (response.status == 200) {
+          toast.success("You registered successfully1");
+          dispatch(onClose());
+        }
       })
       .catch((error) => {
         //On Error
-        toast.error("Somthing went wrong!");
+        if (error.response.data.message) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error("Somthing went wrong");
+        }
       })
       .finally(() => {
         //At the end
@@ -70,12 +83,14 @@ const RegisterModal = () => {
                 name="name"
                 label="Name"
                 error={touched.name && errors.name ? errors.name : undefined}
+                disabled={isSubmitting}
               />
               <Input
                 name="email"
                 label="Email"
                 error={touched.email && errors.email ? errors.email : undefined}
                 type="email"
+                disabled={isSubmitting}
               />
               <Input
                 name="password"
@@ -86,6 +101,18 @@ const RegisterModal = () => {
                     : undefined
                 }
                 type="password"
+                disabled={isSubmitting}
+              />
+              <Input
+                name="confirmPassword"
+                label="Confirm Password"
+                error={
+                  touched.confirmPassword && errors.confirmPassword
+                    ? errors.confirmPassword
+                    : undefined
+                }
+                type="password"
+                disabled={isSubmitting}
               />
             </Form>
           );

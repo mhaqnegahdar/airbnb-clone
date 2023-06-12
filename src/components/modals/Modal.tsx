@@ -84,6 +84,7 @@ const Modal = ({
                     label={secondaryBtnLabel}
                     onClick={handlesecondaryBtnAction}
                     btnType={secondaryBtnType ? secondaryBtnType : "button"}
+                    disabled={disabled}
                   />
                 )}
                 {secondaryBtnLabel && secondaryBtnFormId && (
@@ -92,6 +93,7 @@ const Modal = ({
                     formId={secondaryBtnFormId}
                     label={secondaryBtnLabel}
                     btnType={secondaryBtnType ? secondaryBtnType : "button"}
+                    disabled={disabled}
                   />
                 )}
                 {/* Primary BTN */}
@@ -100,12 +102,14 @@ const Modal = ({
                     formId={primaryBtnFormId}
                     btnType={primaryBtnType}
                     label={primaryBtnLabel!}
+                    disabled={disabled}
                   />
                 ) : (
                   <Button
                     onClick={handleSubmit}
                     btnType={primaryBtnType}
                     label={primaryBtnLabel!}
+                    disabled={disabled}
                   />
                 )}
               </div>

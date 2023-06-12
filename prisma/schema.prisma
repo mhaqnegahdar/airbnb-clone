@@ -1,0 +1,104 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// Models
+
+// User model
+model User {
+// id
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+// Attributes
+  name String?
+  email String? @unique
+  emailVerified String? @unique
+  image String?
+  hashedPassword String?
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+// Relations
+  accounts Account[]
+  listings Listing[]
+  reservations Reservation[]
+
+}
+// Account model
+model Account {
+// id
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+// Attributes
+  type String
+  provider String
+  providerAccountId String
+  refresh_token String? @db.String
+  access_token String? @db.String
+  expires_at Int?
+  token_type String?
+  scope String?
+  id_token String? @db.String
+  session_state String?
+
+  // Unique
+  @@unique([provider,providerAccountId])
+
+
+// relations
+  user User @relation(fields: [userId],references: [id],onDelete:Cascade)
+    userId String  @db.ObjectId
+
+}
+
+// Listing model
+model Listing {
+// id
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+// Attributes
+  title String
+  description String
+  imageSrc String
+  createdAt DateTime @default(now())
+  category String
+  roomCount Int
+  bathroomCount Int
+  guestCount Int
+  locationValue String
+  price Int
+
+// relations
+  user User @relation(fields: [userId],references: [id],onDelete:Cascade)
+    userId String  @db.ObjectId
+  reservations Reservation[]
+
+
+}
+
+// Reservation model
+model Reservation {
+// id
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+// Attribute
+startDate DateTime
+endData DateTime
+totalPrice Int
+createdAt DateTime @default(now())
+
+// Relations
+  user User @relation(fields: [userId],references: [id],onDelete:Cascade)
+    userId String  @db.ObjectId
+  listing Listing @relation(fields: [listingId],references: [id],onDelete:Cascade)
+    listingId String  @db.ObjectId
+}
+
