@@ -83,12 +83,14 @@ const RegisterModal = () => {
                 name="name"
                 label="Name"
                 error={touched.name && errors.name ? errors.name : undefined}
+                disabled={isSubmitting}
               />
               <Input
                 name="email"
                 label="Email"
                 error={touched.email && errors.email ? errors.email : undefined}
                 type="email"
+                disabled={isSubmitting}
               />
               <Input
                 name="password"
@@ -99,6 +101,7 @@ const RegisterModal = () => {
                     : undefined
                 }
                 type="password"
+                disabled={isSubmitting}
               />
               <Input
                 name="confirmPassword"
@@ -109,6 +112,7 @@ const RegisterModal = () => {
                     : undefined
                 }
                 type="password"
+                disabled={isSubmitting}
               />
             </Form>
           );
