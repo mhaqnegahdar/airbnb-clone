@@ -1,12 +1,10 @@
-"use client";
 import "./globals.css";
 import { Nunito } from "next/font/google";
 import { ContainerProps } from "@/types";
 import NavBar from "@/components/navbar/NavBar";
-import { Provider } from "react-redux";
-import store from "@/redux/store";
-import RegisterModal from "@/components/modals/RegisterModal";
-import ToasterProvider from "@/components/Providers/ToasterProvider";
+import OuterProviders from "@/components/Providers/OuterProviders";
+import InnerProviders from "@/components/Providers/InnerProviders";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -15,17 +13,19 @@ export const metadata = {
   description: "Practical Airbnb Clone",
 };
 
-export default function RootLayout({ children }: ContainerProps) {
+export default async function RootLayout({ children }: ContainerProps) {
+
+const currentUser = await getCurrentUser();
+
   return (
-    <html lang="en">
-      <Provider store={store}>
+    <OuterProviders>
+      <html lang="en">
         <body className={nunito.className} suppressHydrationWarning={true}>
-          <RegisterModal />
-          <NavBar />
+          <NavBar currentUser={currentUser} />
           {children}
-          <ToasterProvider />
+          <InnerProviders />
         </body>
-      </Provider>
-    </html>
+      </html>
+    </OuterProviders>
   );
 }
