@@ -23,7 +23,12 @@ export default async function getCurrentUser() {
     // If User Didn't Exists
     if (!currentUser) return null;
 
-    return currentUser;
+    return {
+      ...currentUser,
+      createdAt: currentUser.createdAt.toISOString(),
+      updateAt: currentUser.updateAt.toISOString(),
+      emailVerified: currentUser.emailVerified?.toISOString() || null,
+    };
   } catch (error) {
     return null;
   }

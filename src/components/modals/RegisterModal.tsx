@@ -14,6 +14,7 @@ import { selectIsOpen, onClose } from "@/redux/modal/registerModalSlice";
 import Heading from "../Heading";
 import toast from "react-hot-toast";
 import Button from "../Button";
+import { signIn } from "next-auth/react";
 
 const RegisterModal = () => {
   // Redux
@@ -129,14 +130,18 @@ const RegisterModal = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => {}}
+        onClick={() => {
+          signIn("google");
+        }}
         btnType="button"
       />
       <Button
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => {}}
+        onClick={() => {
+          signIn("github");
+        }}
         btnType="button"
       />
 

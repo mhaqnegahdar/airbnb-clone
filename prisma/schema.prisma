@@ -20,11 +20,12 @@ model User {
 // Attributes
   name String?
   email String? @unique
-  emailVerified String? @unique
+  emailVerified DateTime?
   image String?
   hashedPassword String?
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
+  favorites String[] @db.ObjectId
 
 // Relations
   accounts Account[]

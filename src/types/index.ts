@@ -73,8 +73,18 @@ export interface InputProps {
   touched?: boolean;
 }
 
+type SafeUser = Omit<User, "createdAt" | "updateAt" | "emailVerified"> & {
+  createdAt: string;
+  updateAt: string;
+  emailVerified?: string | null;
+};
+
 export interface NavBarProps {
-  currentUser?: User | null;
+  currentUser?: SafeUser | null;
+}
+
+export interface AvatarProps {
+  src?: string | null;
 }
 
 // Form Initial Values
