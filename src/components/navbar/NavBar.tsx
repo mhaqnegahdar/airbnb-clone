@@ -3,6 +3,7 @@ import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
 import { NavBarProps } from "@/types";
+import Categories from "./Categories";
 
 const NavBar = ({ currentUser }: NavBarProps) => {
   return (
@@ -16,6 +17,7 @@ const NavBar = ({ currentUser }: NavBarProps) => {
           </div>
         </Container>
       </div>
+      <Categories />
     </header>
   );
 };
