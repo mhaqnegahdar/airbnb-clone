@@ -1,5 +1,6 @@
 import { IconType } from "react-icons";
 import { User } from "@prisma/client";
+// import {IntrinsicAttributes } from '@types/react'
 
 // Props
 export interface ContainerProps {
@@ -87,6 +88,12 @@ export interface AvatarProps {
   src?: string | null;
 }
 
+export interface CategoryBoxProps extends JSX.IntrinsicAttributes {
+  icon: IconType;
+  label: string;
+  selected?: boolean;
+}
+
 // Form Initial Values
 export interface RegisterForm {
   name?: string;
@@ -104,4 +111,10 @@ export interface LoginForm {
 // Define a type for the slice state
 export interface ModalState {
   isOpen: boolean;
+}
+
+export interface Category {
+  icon: IconType;
+  label: string;
+  description: string;
 }

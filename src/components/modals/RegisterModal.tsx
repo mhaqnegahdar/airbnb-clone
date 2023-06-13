@@ -1,20 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
 import axios from "axios";
-import Modal from "./Modal";
 import { Formik, Form } from "formik";
+import { signIn } from "next-auth/react";
 import { registerSchema } from "@/utils/validationSchema";
 import Input from "@/components/Input";
 import { RegisterForm } from "@/types";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { selectIsOpen, onClose } from "@/redux/modal/registerModalSlice";
-import Heading from "../Heading";
+import { onOpen } from "@/redux/modal/loginModalSlice";
 import toast from "react-hot-toast";
+import Heading from "../Heading";
 import Button from "../Button";
-import { signIn } from "next-auth/react";
+import Modal from "./Modal";
 
 const RegisterModal = () => {
   // Redux
@@ -24,6 +25,12 @@ const RegisterModal = () => {
   // States
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Handle Register Toggle
+  const toggle = useCallback(() => {
+    dispatch(onClose()); //Close Login Modal
+    dispatch(onOpen()); //Open Register Modal
+  }, [onClose, onOpen]);
+
   // Formik Functionality
   const initialValues = {
     name: "",
@@ -32,6 +39,7 @@ const RegisterModal = () => {
     confirmPassword: "",
   };
 
+  // Handle Submit
   const onSubmit = async (values: RegisterForm) => {
     setIsSubmitting(true);
 
@@ -147,7 +155,10 @@ const RegisterModal = () => {
 
       <div className="text-neutral-500 mt-4 font-light flex items-center justify-center gap-2">
         <div>Already have an account?</div>
-        <button className="text-neutral-800 cursor-pointer hover:underline">
+        <button
+          onClick={() => toggle()}
+          className="text-neutral-800 cursor-pointer hover:underline"
+        >
           Login
         </button>
       </div>

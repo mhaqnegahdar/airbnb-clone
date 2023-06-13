@@ -1,19 +1,23 @@
 "use client";
 
+import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
+import { loginSchema } from "@/utils/validationSchema";
+import toast from "react-hot-toast";
+
 import { signIn, useSession } from "next-auth/react";
-import { useState } from "react";
+
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
-import { useRouter } from "next/navigation";
-import Modal from "./Modal";
 import { Formik, Form } from "formik";
-import { loginSchema } from "@/utils/validationSchema";
-import Input from "@/components/Input";
-import { LoginForm } from "@/types";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { selectIsOpen, onClose } from "@/redux/modal/loginModalSlice";
+import { onOpen } from "@/redux/modal/registerModalSlice";
+
+import { LoginForm } from "@/types";
+import Input from "@/components/Input";
+import Modal from "./Modal";
 import Heading from "../Heading";
-import toast from "react-hot-toast";
 import Button from "../Button";
 
 const LoginModal = () => {
@@ -33,6 +37,12 @@ const LoginModal = () => {
     email: "",
     password: "",
   };
+
+  // Handle Register Toggle
+  const toggle = useCallback(() => {
+    dispatch(onClose()); //Close Login Modal
+    dispatch(onOpen()); //Open Register Modal
+  }, [onClose, onOpen]);
 
   const onSubmit = async (values: LoginForm) => {
     setIsSubmitting(true);
@@ -119,9 +129,12 @@ const LoginModal = () => {
       />
 
       <div className="text-neutral-500 mt-4 font-light flex items-center justify-center gap-2">
-        <div>Doesn&lsquo;t have an account?</div>
-        <button className="text-neutral-800 cursor-pointer hover:underline">
-          Register
+        <div>First time using Airbnb?</div>
+        <button
+          className="text-neutral-800 cursor-pointer hover:underline"
+          onClick={() => toggle()}
+        >
+          Create an account
         </button>
       </div>
     </div>
