@@ -9,7 +9,8 @@ Explore the [demo](https://maxjn-airbnb-clone.vercel.app/) for better understand
 - TSX, Tailwindcss,
 - TypeScript
 - **Nextjs v13.4.1**
-- **Packages:** mongodb, mongoose, next-auth, prisma
+- **Main Packages:** mongodb, mongoose, next-auth, prisma ,redux-toolkit, react-reudux
+- **Secondary Packages:** world-countries,react-select,leaflet,react-leaflet,@types/leaflet,bcrypt,
 - **Routing:** useing new app directory
 
 ## Features

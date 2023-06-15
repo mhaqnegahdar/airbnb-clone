@@ -7,7 +7,7 @@ import axios from "axios";
 import { Formik, Form } from "formik";
 import { signIn } from "next-auth/react";
 import { registerSchema } from "@/utils/validationSchema";
-import Input from "@/components/Input";
+import Input from "@/components/inputs/Input";
 import { RegisterForm } from "@/types";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { selectIsOpen, onClose } from "@/redux/modal/registerModalSlice";
@@ -29,7 +29,7 @@ const RegisterModal = () => {
   const toggle = useCallback(() => {
     dispatch(onClose()); //Close Login Modal
     dispatch(onOpen()); //Open Register Modal
-  }, [onClose, onOpen]);
+  }, [dispatch]);
 
   // Formik Functionality
   const initialValues = {
@@ -54,7 +54,7 @@ const RegisterModal = () => {
       .then((response) => {
         // OnSuccess
         if (response.status == 200) {
-          toast.success("You registered successfully1");
+          toast.success("You registered successfully!");
           dispatch(onClose());
         }
       })

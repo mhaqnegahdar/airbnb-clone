@@ -1,8 +1,28 @@
 import { IconType } from "react-icons";
 import { User } from "@prisma/client";
-// import {IntrinsicAttributes } from '@types/react'
+
+// Constants
+
+export enum RentModalSteps {
+  CATEGORY = 0,
+  LOCATION = 1,
+  INFO = 2,
+  IMAGES = 3,
+  DESCRIPTION = 4,
+  PRICE = 5,
+}
 
 // Props
+export interface RadioInputProps
+  extends React.ComponentPropsWithoutRef<"input"> {
+  name: string;
+  label: string;
+  options: Category[];
+}
+export interface CategoryInputProps extends CategoryBoxProps {
+  onClick: (value: string) => void;
+}
+
 export interface ContainerProps {
   children: React.ReactNode;
 }
@@ -11,7 +31,32 @@ export interface MenuItemProps {
   onClick: () => void;
   label: string;
 }
+//PrimaryBtn Attributes
+type PrimaryBtnAtrInitial = {
+  primaryBtnLabel?: string;
+  primaryBtnType: "button" | "submit" | "reset";
+};
 
+type PrimaryFormBtnAtr = PrimaryBtnAtrInitial & {
+  primaryBtnFormId: string;
+  primaryBtnAction?: never;
+};
+type PrimaryPublicBtnAtr = PrimaryBtnAtrInitial & {
+  primaryBtnFormId?: never;
+  primaryBtnAction: () => void;
+};
+
+export type PrimaryBtnAttributes = PrimaryFormBtnAtr | PrimaryPublicBtnAtr;
+
+//SecondaryBtn Attributes
+export type SecondaryBtnAttributes = {
+  secondaryBtnAction?: () => void;
+  secondaryBtnFormId?: string | undefined;
+  secondaryBtnLabel?: string;
+  secondaryBtnType?: "button" | "submit" | "reset";
+};
+
+// Modal
 type InitialModalProps = {
   isOpen?: boolean;
   onClose: () => void;
@@ -21,7 +66,7 @@ type InitialModalProps = {
   primaryBtnLabel?: string;
   disabled?: boolean;
   secondaryBtnAction?: () => void;
-  secondaryBtnFormId?: string;
+  secondaryBtnFormId?: string | undefined;
   secondaryBtnLabel?: string;
   secondaryBtnType?: "button" | "submit" | "reset";
   primaryBtnType: "button" | "submit" | "reset";
@@ -94,6 +139,10 @@ export interface CategoryBoxProps extends JSX.IntrinsicAttributes {
   selected?: boolean;
 }
 
+export interface SelectCountryProps {
+  name: string;
+}
+
 // Form Initial Values
 export interface RegisterForm {
   name?: string;
@@ -105,6 +154,26 @@ export interface RegisterForm {
 export interface LoginForm {
   email?: string;
   password?: string;
+}
+
+export interface Country {
+  flag: string;
+  label: string;
+  latlang: number[];
+  region: string;
+  value: string;
+}
+
+export interface RentForm {
+  category: string;
+  location: string | null | Country;
+  guestCount: number;
+  roomCount: 1;
+  bathroomCount: number;
+  imageSrc: "";
+  price: 1;
+  title: "";
+  description: "";
 }
 
 // States

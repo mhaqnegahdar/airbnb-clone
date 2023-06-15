@@ -1,13 +1,17 @@
 "use client";
+
 import { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import Avatar from "../Avatar";
-import MenuItem from "./MenuItem";
-import { useAppDispatch } from "@/redux/hooks";
-import { onOpen } from "@/redux/modal/registerModalSlice";
-import { onOpen as onLoginOpen } from "@/redux/modal/loginModalSlice";
 import { NavBarProps } from "@/types";
 import { signOut } from "next-auth/react";
+
+import Avatar from "../Avatar";
+import MenuItem from "./MenuItem";
+
+import { useAppDispatch } from "@/redux/hooks";
+import { onOpen as onRegisterOpen } from "@/redux/modal/registerModalSlice";
+import { onOpen as onLoginOpen } from "@/redux/modal/loginModalSlice";
+import { onOpen as onRantOpen } from "@/redux/modal/rentModalSlice";
 
 const UserMenu = ({ currentUser }: NavBarProps) => {
   //States
@@ -15,14 +19,29 @@ const UserMenu = ({ currentUser }: NavBarProps) => {
   const dispatch = useAppDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
-
+  // Functions
+  // Handle Modal Toggle
   const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
+
+  const onRant = useCallback(() => {
+    // if not logged in
+    if (!currentUser) {
+      return dispatch(onLoginOpen());
+    }
+
+    // Open Rand Modal
+    dispatch(onRantOpen());
+  }, [currentUser, dispatch]);
+
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div className="hidden md:block rounded-full transition hover:bg-neutral-200 cursor-pointer text-sm py-3 px-4 font-semibold">
+        <button
+          onClick={onRant}
+          className="hidden md:block rounded-full transition hover:bg-neutral-200 cursor-pointer text-sm py-3 px-4 font-semibold"
+        >
           Airbnb your home
-        </div>
+        </button>
         <div
           onClick={toggle}
           className="p-4 md:py-1 md:px-2 border-[1px] rounded-full border-neutral-200 flex flex-row items-center gap-3 cursor-pointer  hover:shadow-md transition text-xl"
@@ -65,6 +84,7 @@ const UserMenu = ({ currentUser }: NavBarProps) => {
               <MenuItem
                 label="Airbnb my home"
                 onClick={() => {
+                  onRant();
                   setIsOpen(false);
                 }}
               />
@@ -89,7 +109,7 @@ const UserMenu = ({ currentUser }: NavBarProps) => {
               <MenuItem
                 label="Signup"
                 onClick={() => {
-                  dispatch(onOpen());
+                  dispatch(onRegisterOpen());
                   setIsOpen(false);
                 }}
               />

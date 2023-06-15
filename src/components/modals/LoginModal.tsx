@@ -15,7 +15,7 @@ import { selectIsOpen, onClose } from "@/redux/modal/loginModalSlice";
 import { onOpen } from "@/redux/modal/registerModalSlice";
 
 import { LoginForm } from "@/types";
-import Input from "@/components/Input";
+import Input from "@/components/inputs/Input";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import Button from "../Button";
@@ -42,7 +42,7 @@ const LoginModal = () => {
   const toggle = useCallback(() => {
     dispatch(onClose()); //Close Login Modal
     dispatch(onOpen()); //Open Register Modal
-  }, [onClose, onOpen]);
+  }, [dispatch]);
 
   const onSubmit = async (values: LoginForm) => {
     setIsSubmitting(true);
@@ -70,7 +70,7 @@ const LoginModal = () => {
   // Body
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome Back!" subTitle="Login your account.f" />
+      <Heading title="Welcome Back!" subTitle="Login your account." />
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
