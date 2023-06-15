@@ -3,12 +3,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./counter/counterSlice";
 import registerModalReducer from "./modal/registerModalSlice";
 import loginModalReducer from "./modal/loginModalSlice";
+import rentModalReducer from "./modal/rentModalSlice";
 
 const store = configureStore({
   reducer: {
     counter: counterReducer,
     registerModal: registerModalReducer,
     loginModal: loginModalReducer,
+    rentModal: rentModalReducer,
   },
 });
 
