@@ -20,6 +20,7 @@ import {
 import { Formik, Form, ErrorMessage } from "formik";
 import { RentSchema } from "@/utils/validationSchema";
 import SelectCountry from "../inputs/SelectCountry";
+import CounterInput from "../inputs/CounterInput";
 
 // variables
 // Form Initials
@@ -146,9 +147,31 @@ const RentModal = () => {
                 </div>
               )}
               {step === STEPS.LOCATION && <SelectCountry name="location" />}
-              {step === STEPS.DESCRIPTION && <div>Description</div>}
+              {step === STEPS.INFO && (
+                <div className="flex flex-col gap-8">
+                  <CounterInput
+                    name="guestCount"
+                    title="Guests"
+                    subtitle="How many guests do you allow?"
+                  />
+                  <hr />
+
+                  <CounterInput
+                    name="roomCount"
+                    title="Rooms"
+                    subtitle="How many rooms do you have?"
+                  />
+                  <hr />
+                  <CounterInput
+                    name="bathroomCount"
+                    title="Bathrooms"
+                    subtitle="How many bathrooms do you have?"
+                  />
+                </div>
+              )}
+
+              {step === STEPS.DESCRIPTION && <div>Descreption</div>}
               {step === STEPS.IMAGES && <div>Images</div>}
-              {step === STEPS.INFO && <div>Info</div>}
               {step === STEPS.PRICE && <div>Price</div>}
               <ErrorMessage
                 name="category"
