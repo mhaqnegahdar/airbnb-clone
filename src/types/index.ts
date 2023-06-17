@@ -13,6 +13,13 @@ export enum RentModalSteps {
 }
 
 // Props
+export interface CounterInputProps
+  extends React.ComponentPropsWithoutRef<"input"> {
+  name: string;
+  title: string;
+  subtitle: string;
+}
+
 export interface RadioInputProps
   extends React.ComponentPropsWithoutRef<"input"> {
   name: string;
