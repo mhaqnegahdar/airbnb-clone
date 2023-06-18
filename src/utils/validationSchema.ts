@@ -1,4 +1,4 @@
-import { string, object, number, ref } from "yup";
+import { string, object, number, ref, array } from "yup";
 
 export const registerSchema = object({
   name: string().required("Required!"),
@@ -30,7 +30,14 @@ export const loginSchema = object({
 
 export const RentSchema = object({
   category: string().required("Select a category first!"),
-  imageSrc:string().required("Upload an image first!"),
+  imageSrc: string().required("Upload an image first!"),
+  location: object({
+    value: string(),
+    label: string(),
+    flag: string(),
+    latlang: array().of(number()).length(2),
+    region: string(),
+  }).required("Select a country first!"),
   guestCount: number()
     .min(1, "Guest count cant be less than 1!")
     .required("Add guest count first!"),
@@ -40,7 +47,7 @@ export const RentSchema = object({
   bathroomCount: number()
     .min(1, "Bathroom count cant be less than 1!")
     .required("Add guest count first!"),
-    title: string()
+  title: string()
     .min(3, "Title is too Short")
     .max(100, "Title is too long")
     .required("Add title first!"),
