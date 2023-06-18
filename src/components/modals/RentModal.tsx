@@ -25,6 +25,7 @@ import UploadImageInput from "../inputs/UploadImageInput";
 import Input from "../inputs/Input";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 // variables
 // Form Initials
@@ -43,12 +44,13 @@ const initialValues: RentForm = {
 };
 
 const RentModal = () => {
-  // State
+  // Hooks
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector(selectIsOpen);
   const [step, setStep] = useState(STEPS.CATEGORY);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef<FormikProps<RentForm>>(null);
+  const router = useRouter();
 
   //   Actions
   const checkStepError = async (step: STEPS) => {
@@ -162,6 +164,9 @@ const RentModal = () => {
       .then((response) => {
         if (response.status == 200) {
           toast.success("Listing Created!");
+          router.push("/");
+          setStep(STEPS.CATEGORY);
+          formRef.current?.resetForm();
           dispatch(onClose());
         }
       })

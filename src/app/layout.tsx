@@ -14,15 +14,14 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }: ContainerProps) {
-
-const currentUser = await getCurrentUser();
+  const currentUser = await getCurrentUser();
 
   return (
     <OuterProviders>
       <html lang="en">
         <body className={nunito.className} suppressHydrationWarning={true}>
           <NavBar currentUser={currentUser} />
-          {children}
+          <div className="pb-20 pt-28">{children}</div>
           <InnerProviders />
         </body>
       </html>

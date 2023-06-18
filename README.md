@@ -10,7 +10,7 @@ Explore the [demo](https://maxjn-airbnb-clone.vercel.app/) for better understand
 - TypeScript
 - **Nextjs v13.4.1**
 - **Main Packages:** mongodb, mongoose, next-auth, prisma ,redux-toolkit, react-reudux
-- **Secondary Packages:** world-countries,react-select,leaflet,react-leaflet,@types/leaflet,bcrypt,
+- **Secondary Packages:** world-countries,react-select,leaflet,react-leaflet,@types/leaflet,bcrypt, date-fns
 - **Routing:** useing new app directory
 
 ## Features

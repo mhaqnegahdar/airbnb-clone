@@ -130,7 +130,10 @@ export interface InputProps {
   touched?: boolean;
 }
 
-type SafeUser = Omit<User, "createdAt" | "updateAt" | "emailVerified"> & {
+export type SafeUser = Omit<
+  User,
+  "createdAt" | "updateAt" | "emailVerified"
+> & {
   createdAt: string;
   updateAt: string;
   emailVerified?: string | null;
@@ -187,6 +190,11 @@ export interface RentForm {
   description: "";
 }
 
+export interface EmptyStateProps {
+  title?: string;
+  subtitle?: string;
+  showReset?: boolean;
+}
 // States
 // Define a type for the slice state
 export interface ModalState {

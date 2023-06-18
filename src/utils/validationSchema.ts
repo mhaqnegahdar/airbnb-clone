@@ -54,5 +54,7 @@ export const RentSchema = object({
   description: string()
     .min(100, "Description is too Short")
     .required("Add description first!"),
-  price: number().required("Add price first!"),
+  price: number()
+    .min(10, "Price must be more then $10 per night!")
+    .required("Add price first!"),
 });
