@@ -92,7 +92,7 @@ model Reservation {
 
 // Attribute
 startDate DateTime
-endData DateTime
+endDate DateTime
 totalPrice Int
 createdAt DateTime @default(now())
 
