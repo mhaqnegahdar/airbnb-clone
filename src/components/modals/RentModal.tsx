@@ -21,6 +21,7 @@ import { Formik, Form, ErrorMessage } from "formik";
 import { RentSchema } from "@/utils/validationSchema";
 import SelectCountry from "../inputs/SelectCountry";
 import CounterInput from "../inputs/CounterInput";
+import UploadImageInput from "../inputs/UploadImageInput";
 
 // variables
 // Form Initials
@@ -129,12 +130,7 @@ const RentModal = () => {
         onSubmit={onSubmit}
         validationSchema={RentSchema}
       >
-        {({
-          setTouched,
-          validateForm,
-
-          /* and other goodies */
-        }) => {
+        {({setFieldValue}) => {
           return (
             <Form id={formId}>
               {step === STEPS.CATEGORY && (
@@ -170,8 +166,8 @@ const RentModal = () => {
                 </div>
               )}
 
+              {step === STEPS.IMAGES && <UploadImageInput name="imageSrc" />}
               {step === STEPS.DESCRIPTION && <div>Descreption</div>}
-              {step === STEPS.IMAGES && <div>Images</div>}
               {step === STEPS.PRICE && <div>Price</div>}
               <ErrorMessage
                 name="category"
