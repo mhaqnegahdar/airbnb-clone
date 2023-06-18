@@ -1,6 +1,6 @@
 "use client";
 // Hooks
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useCallback } from "react";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { onClose, selectIsOpen } from "@/redux/modal/rentModalSlice";
@@ -17,11 +17,14 @@ import {
   SecondaryBtnAttributes,
 } from "@/types";
 // Libraries
-import { Formik, Form, ErrorMessage } from "formik";
+import { Formik, Form, FormikProps } from "formik";
 import { RentSchema } from "@/utils/validationSchema";
 import SelectCountry from "../inputs/SelectCountry";
 import CounterInput from "../inputs/CounterInput";
 import UploadImageInput from "../inputs/UploadImageInput";
+import Input from "../inputs/Input";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 // variables
 // Form Initials
@@ -44,14 +47,48 @@ const RentModal = () => {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector(selectIsOpen);
   const [step, setStep] = useState(STEPS.CATEGORY);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const formRef = useRef<FormikProps<RentForm>>(null);
 
   //   Actions
-  const onBack = () => {
+  const checkStepError = async (step: STEPS) => {
+    switch (step) {
+      case STEPS.CATEGORY:
+        await formRef.current?.validateField("category");
+        await formRef.current?.setFieldTouched("category");
+        return formRef.current?.errors.category ? true : false;
+      case STEPS.LOCATION:
+        await formRef.current?.validateField("location");
+        await formRef.current?.setFieldTouched("location");
+        return formRef.current?.errors.location ? true : false;
+      case STEPS.IMAGES:
+        await formRef.current?.validateField("imageSrc");
+        await formRef.current?.setFieldTouched("imageSrc");
+        return formRef.current?.errors.imageSrc ? true : false;
+      case STEPS.DESCRIPTION:
+        await formRef.current?.validateField("title");
+        await formRef.current?.validateField("description");
+        await formRef.current?.setTouched({ title: true, description: true });
+        return formRef.current?.errors.title ||
+          formRef.current?.errors.description
+          ? true
+          : false;
+
+      default:
+        return false;
+    }
+  };
+
+  const onBack = useCallback(() => {
     setStep((val) => val - 1);
-  };
-  const onNext = () => {
-    setStep((val) => val + 1);
-  };
+  }, []);
+
+  const onNext = useCallback(async () => {
+    let stepError = await checkStepError(step);
+    if (!stepError) {
+      setStep((val) => val + 1);
+    }
+  }, [step]);
 
   const primaryBtnAttributes: PrimaryBtnAttributes = useMemo(() => {
     if (step === STEPS.PRICE) {
@@ -66,7 +103,7 @@ const RentModal = () => {
       primaryBtnAction: onNext,
       primaryBtnLabel: "Next",
     };
-  }, [step]);
+  }, [step, onNext]);
 
   const secondaryBtnAttributes: SecondaryBtnAttributes = useMemo(() => {
     let btnAction = undefined;
@@ -79,7 +116,7 @@ const RentModal = () => {
       secondaryBtnLabel: "Back",
       secondaryBtnAction: btnAction,
     };
-  }, [step]);
+  }, [step, onBack]);
 
   const stepHeading = useMemo(() => {
     switch (step) {
@@ -117,8 +154,23 @@ const RentModal = () => {
   }, [step]);
 
   // Form Submit
-  const onSubmit = (values: RentForm) => {
-    console.log(values);
+  const onSubmit = async (values: RentForm) => {
+    setIsSubmitting(true);
+
+    axios
+      .post(`/api/listings`, values)
+      .then((response) => {
+        if (response.status == 200) {
+          toast.success("Listing Created!");
+          dispatch(onClose());
+        }
+      })
+      .catch((error) => {
+        toast.error("Somthing went wrong!");
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   //   Body Content
@@ -126,11 +178,12 @@ const RentModal = () => {
     <div className="flex flex-col gap-8">
       <Heading {...stepHeading} />
       <Formik
+        innerRef={formRef}
         initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={RentSchema}
       >
-        {({setFieldValue}) => {
+        {({ setFieldValue }) => {
           return (
             <Form id={formId}>
               {step === STEPS.CATEGORY && (
@@ -167,13 +220,16 @@ const RentModal = () => {
               )}
 
               {step === STEPS.IMAGES && <UploadImageInput name="imageSrc" />}
-              {step === STEPS.DESCRIPTION && <div>Descreption</div>}
-              {step === STEPS.PRICE && <div>Price</div>}
-              <ErrorMessage
-                name="category"
-                component={"p"}
-                className="text-red-500"
-              />
+              {step === STEPS.DESCRIPTION && (
+                <div className="flex flex-col gap-8">
+                  <Input name="title" label="Title" />
+                  <hr />
+                  <Input name="description" label="Description" />
+                </div>
+              )}
+              {step === STEPS.PRICE && (
+                <Input name="price" label="Price" formatPrice />
+              )}
             </Form>
           );
         }}
@@ -187,6 +243,7 @@ const RentModal = () => {
       onClose={() => dispatch(onClose())}
       title="Airbnb your home!"
       body={bodyContent}
+      disabled={isSubmitting}
       {...primaryBtnAttributes}
       {...secondaryBtnAttributes}
     />

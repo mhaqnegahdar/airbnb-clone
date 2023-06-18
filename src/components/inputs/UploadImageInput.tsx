@@ -57,11 +57,7 @@ const UploadImageInput = ({ name, ...rest }: UploadImageInputProps) => {
       {/* Input */}
 
       <Field id={name} name={name} {...rest} className="hidden" />
-      <ErrorMessage
-        name={name}
-        className="text-red-500 text-xs italic start-0 col-span-full"
-        component={"div"}
-      />
+      <ErrorMessage name={name} className="text-red-500" component={"div"} />
     </>
   );
 };

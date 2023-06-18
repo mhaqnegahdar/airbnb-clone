@@ -10,7 +10,7 @@ import { ErrorMessage, Field, FieldProps, useFormikContext } from "formik";
 import useCountries from "@/hooks/useCountries";
 
 import { SelectCountryProps } from "@/types";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 const SelectCountry = ({ name }: SelectCountryProps) => {
   const { getAll } = useCountries();

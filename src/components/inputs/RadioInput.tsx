@@ -40,7 +40,7 @@ const RadioInput = ({ name, label, options, ...rest }: RadioInputProps) => {
       </Field>
       <ErrorMessage
         name={name}
-        className="text-red-500 text-xs italic start-0 col-span-full"
+        className="text-red-500  col-span-full"
         component={"div"}
       />
     </>
