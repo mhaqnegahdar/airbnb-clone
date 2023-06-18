@@ -14,9 +14,7 @@ import { useMemo, useState } from "react";
 
 const SelectCountry = ({ name }: SelectCountryProps) => {
   const { getAll } = useCountries();
-  const { setFieldValue } = useFormikContext();
-
-  const [state, setState] = useState({});
+  const { setFieldValue, getFieldProps } = useFormikContext();
 
   // dynamically get Map when Select value changes
   const Map = useMemo(
@@ -24,13 +22,12 @@ const SelectCountry = ({ name }: SelectCountryProps) => {
       dynamic(() => import("../Map"), {
         ssr: false,
       }),
-    [state]
+    [getFieldProps(name).value]
   );
   return (
     <div className="w-full relative mb-4">
-      <Field as="select" name={name}>
+      <Field name={name}>
         {({ field }: FieldProps) => {
-          setState(field.value);
           return (
             <>
               <Select

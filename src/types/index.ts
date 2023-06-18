@@ -13,6 +13,10 @@ export enum RentModalSteps {
 }
 
 // Props
+export interface UploadImageInputProps
+  extends React.ComponentPropsWithoutRef<"input"> {
+  name: string;
+}
 export interface CounterInputProps
   extends React.ComponentPropsWithoutRef<"input"> {
   name: string;

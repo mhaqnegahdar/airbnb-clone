@@ -26,7 +26,6 @@ const CounterInput = ({
 
         <Field id={name} name={name} type="number" {...rest}>
           {({ field, meta, form }: FieldProps) => {
-            console.log(field, meta, form);
             return (
               <div className="flex flex-row items-center gap-4">
                 <button
