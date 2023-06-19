@@ -1,9 +1,9 @@
-import { FavoriteRouteParams } from "@/types";
+import { ListingIdParams } from "@/types";
 import { NextResponse } from "next/server";
 import getCurrentUser from "@/actions/getCurrentUser";
 import { prisma } from "@/utils/prismadb";
 
-export async function POST(req: Request, { params }: FavoriteRouteParams) {
+export async function POST(req: Request, { params }: ListingIdParams) {
   const currentUser = await getCurrentUser();
 
   try {
@@ -34,7 +34,7 @@ export async function POST(req: Request, { params }: FavoriteRouteParams) {
   }
 }
 
-export async function DELETE(req: Request, { params }: FavoriteRouteParams) {
+export async function DELETE(req: Request, { params }: ListingIdParams) {
   const currentUser = await getCurrentUser();
 
   try {
