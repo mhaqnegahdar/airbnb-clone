@@ -1,5 +1,5 @@
 import { IconType } from "react-icons";
-import { User } from "@prisma/client";
+import { User,Listing, Reservation  } from "@prisma/client";
 
 // Constants
 
@@ -195,6 +195,16 @@ export interface EmptyStateProps {
   subtitle?: string;
   showReset?: boolean;
 }
+
+export interface ListingCardProps {
+  data: Listing;
+  reservation?: Reservation;
+  onAction?: (id: string) => void;
+  disabled?: boolean;
+  actionLabel?: string;
+  actionId?: string;
+  currentUser?: SafeUser | null;
+}
 // States
 // Define a type for the slice state
 export interface ModalState {
@@ -205,4 +215,17 @@ export interface Category {
   icon: IconType;
   label: string;
   description: string;
+}
+
+// Route Params
+
+export interface FavoriteRouteParams {
+  params: {
+    listingId?: string;
+  };
+}
+
+export interface UseFavoriteParams {
+  listingId: string;
+  currentUser?: SafeUser | null;
 }
