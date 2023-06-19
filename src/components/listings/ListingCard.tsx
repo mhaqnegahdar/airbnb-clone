@@ -6,21 +6,11 @@ import { format } from "date-fns";
 import Image from "next/image";
 import useCountries from "@/hooks/useCountries";
 //Types
-import { SafeUser } from "@/types";
-import { Listing, Reservation } from "@prisma/client";
+import {ListingCardProps} from "@/types";
 //Components
 import Button from "../Button";
 import HeartButton from "../HeartButton";
 
-export interface ListingCardProps {
-  data: Listing;
-  reservation?: Reservation;
-  onAction?: (id: string) => void;
-  disabled?: boolean;
-  actionLabel?: string;
-  actionId?: string;
-  currentUser?: SafeUser;
-}
 
 const ListingCard = ({
   data,
