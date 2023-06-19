@@ -1,5 +1,5 @@
 import { IconType } from "react-icons";
-import { User,Listing, Reservation  } from "@prisma/client";
+import { User, Listing, Reservation } from "@prisma/client";
 
 // Constants
 
@@ -139,6 +139,10 @@ export type SafeUser = Omit<
   emailVerified?: string | null;
 };
 
+export type SafeListing = Omit<Listing, "createdAt"> & {
+  createdAt: string;
+};
+
 export interface NavBarProps {
   currentUser?: SafeUser | null;
 }
@@ -197,7 +201,7 @@ export interface EmptyStateProps {
 }
 
 export interface ListingCardProps {
-  data: Listing;
+  data: SafeListing;
   reservation?: Reservation;
   onAction?: (id: string) => void;
   disabled?: boolean;
@@ -217,9 +221,33 @@ export interface Category {
   description: string;
 }
 
+export interface ListingClientProps {
+  reservations?: Reservation[];
+  listing: SafeListing & { user: SafeUser };
+  currentUser?: SafeUser | null;
+}
+
+export interface ListingHeadProps {
+  title: string;
+  imageSrc: string;
+  locationValue: string;
+  id: string;
+  currentUser?: SafeUser | null;
+}
+
+export interface ListingInfoPropst {
+  user: SafeUser;
+  category: Category | undefined;
+  description: string;
+  roomCount: number;
+  guestCount: number;
+  bathroomCount: number;
+  locationValue: string;
+}
+
 // Route Params
 
-export interface FavoriteRouteParams {
+export interface ListingIdParams {
   params: {
     listingId?: string;
   };
@@ -228,4 +256,8 @@ export interface FavoriteRouteParams {
 export interface UseFavoriteParams {
   listingId: string;
   currentUser?: SafeUser | null;
+}
+
+export interface getListingByIdParams {
+  listingId?: string;
 }
