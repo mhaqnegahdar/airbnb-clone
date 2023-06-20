@@ -213,12 +213,17 @@ export interface EmptyStateProps {
 
 export interface ListingCardProps {
   data: SafeListing;
-  reservation?: Reservation;
+  reservation?: SafeReservation;
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
   actionId?: string;
   currentUser?: SafeUser | null;
+}
+
+export interface TripsClientProps {
+  reservations: SafeReservation[];
+  currentUser?: SafeUser;
 }
 // States
 // Define a type for the slice state

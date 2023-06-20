@@ -1,13 +1,19 @@
 "use client";
 
+//Hooks/Packages
 import { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import { NavBarProps } from "@/types";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
+//Types
+import { NavBarProps } from "@/types";
+
+// Compenents
 import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
 
+// Redux
 import { useAppDispatch } from "@/redux/hooks";
 import { onOpen as onRegisterOpen } from "@/redux/modal/registerModalSlice";
 import { onOpen as onLoginOpen } from "@/redux/modal/loginModalSlice";
@@ -15,13 +21,15 @@ import { onOpen as onRantOpen } from "@/redux/modal/rentModalSlice";
 
 const UserMenu = ({ currentUser }: NavBarProps) => {
   //States
+  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+
   // Redux
   const dispatch = useAppDispatch();
 
-  const [isOpen, setIsOpen] = useState(false);
   // Functions
   // Handle Modal Toggle
-  const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
+  const toggle = useCallback(() => setIsOpen(prev => !prev), []);
 
   const onRant = useCallback(() => {
     // if not logged in
@@ -60,6 +68,7 @@ const UserMenu = ({ currentUser }: NavBarProps) => {
               <MenuItem
                 label="My trips"
                 onClick={() => {
+                  router.push("/trips");
                   setIsOpen(false);
                 }}
               />
