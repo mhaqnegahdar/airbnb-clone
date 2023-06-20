@@ -35,7 +35,7 @@ const ListingInfo = ({
           <div>{bathroomCount} bathrooms</div>
         </div>
       </div>
-      <hr/>
+      <hr />
       {category && (
         <ListingCategory
           icon={category.icon}
