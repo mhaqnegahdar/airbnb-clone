@@ -1,5 +1,6 @@
 import { IconType } from "react-icons";
 import { User, Listing, Reservation } from "@prisma/client";
+import { Range, RangeKeyDict } from "react-date-range";
 
 // Constants
 
@@ -243,6 +244,22 @@ export interface ListingInfoPropst {
   guestCount: number;
   bathroomCount: number;
   locationValue: string;
+}
+
+export interface ListingReservationProps {
+  price: number;
+  dateRange: Range;
+  totalPrice: number;
+  onChangeDate: (value: Range) => void;
+  onSubmit: () => void;
+  disabled?: boolean;
+  disabledDates: Date[];
+}
+
+export interface CalendarInputProps {
+  value: Range;
+  onChange: (value: RangeKeyDict) => void;
+  disabledDates?: Date[];
 }
 
 // Route Params
