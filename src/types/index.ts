@@ -144,6 +144,16 @@ export type SafeListing = Omit<Listing, "createdAt"> & {
   createdAt: string;
 };
 
+export type SafeReservation = Omit<
+  Reservation,
+  "createdAt" | "startDate" | "endDate" | "listing"
+> & {
+  createdAt: string;
+  startDate: string;
+  endDate: string;
+  listing: SafeListing;
+};
+
 export interface NavBarProps {
   currentUser?: SafeUser | null;
 }
@@ -223,7 +233,7 @@ export interface Category {
 }
 
 export interface ListingClientProps {
-  reservations?: Reservation[];
+  reservations?: SafeReservation[];
   listing: SafeListing & { user: SafeUser };
   currentUser?: SafeUser | null;
 }
@@ -277,4 +287,10 @@ export interface UseFavoriteParams {
 
 export interface getListingByIdParams {
   listingId?: string;
+}
+
+export interface getReservationsParams {
+  listingId?: string;
+  userId?: string;
+  authorId?: string;
 }
