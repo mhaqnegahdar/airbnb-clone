@@ -1,3 +1,5 @@
+//https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
+export const dynamic = "force-dynamic";
 //Components
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
