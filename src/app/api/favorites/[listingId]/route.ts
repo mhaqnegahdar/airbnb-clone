@@ -8,7 +8,10 @@ export async function POST(req: Request, { params }: ListingIdParams) {
 
   try {
     //Check  existance of current user
-    if (!currentUser) return NextResponse.error();
+    if (!currentUser) return NextResponse.json(
+      { error: "Please login first!" },
+      { status: 500 }
+    );
 
     const { listingId } = params;
 
@@ -39,7 +42,10 @@ export async function DELETE(req: Request, { params }: ListingIdParams) {
 
   try {
     //Check  existance of current user
-    if (!currentUser) return NextResponse.error();
+    if (!currentUser) return NextResponse.json(
+      { error: "Please login first!" },
+      { status: 500 }
+    );
 
     const { listingId } = params;
 

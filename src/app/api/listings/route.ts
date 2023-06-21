@@ -19,7 +19,7 @@ export async function POST(req: Request) {
   // Error response
   if (!currentUser) {
     return NextResponse.json(
-      { message: "Not a valid request!" },
+      { error: "Not a valid request!" },
       { status: 500 }
     );
   }
