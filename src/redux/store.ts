@@ -4,6 +4,7 @@ import counterReducer from "./counter/counterSlice";
 import registerModalReducer from "./modal/registerModalSlice";
 import loginModalReducer from "./modal/loginModalSlice";
 import rentModalReducer from "./modal/rentModalSlice";
+import searchModalReducer from "./modal/searchModalSlice";
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     registerModal: registerModalReducer,
     loginModal: loginModalReducer,
     rentModal: rentModalReducer,
+    searchModal: searchModalReducer,
   },
 });
 

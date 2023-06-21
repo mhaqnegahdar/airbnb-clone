@@ -58,3 +58,5 @@ export const RentSchema = object({
     .min(10, "Price must be more then $10 per night!")
     .required("Add price first!"),
 });
+
+export const SearchSchema = object({});

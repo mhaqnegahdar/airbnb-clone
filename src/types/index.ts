@@ -13,6 +13,12 @@ export enum RentModalSteps {
   PRICE = 5,
 }
 
+export enum SearchModalSteps {
+  LOCATION = 0,
+  DATE = 1,
+  INFO = 2,
+}
+
 // Props
 export interface UploadImageInputProps
   extends React.ComponentPropsWithoutRef<"input"> {
@@ -185,24 +191,32 @@ export interface LoginForm {
   password?: string;
 }
 
-export interface Country {
+export type Country = {
   flag: string;
   label: string;
   latlang: number[];
   region: string;
   value: string;
-}
+};
 
 export interface RentForm {
   category: string;
-  location: string | null | Country;
+  location: null | Country;
   guestCount: number;
-  roomCount: 1;
+  roomCount: number;
   bathroomCount: number;
-  imageSrc: "";
-  price: 1;
-  title: "";
-  description: "";
+  imageSrc: string;
+  price: number;
+  title: string;
+  description: string;
+}
+
+export interface SearchForm {
+  guestCount: number;
+  roomCount: number;
+  bathroomCount: number;
+  dateRange: Range;
+  location: Country | null;
 }
 
 export interface EmptyStateProps {
@@ -283,8 +297,12 @@ export interface ListingReservationProps {
 
 export interface CalendarInputProps {
   value: Range;
-  onChange: (value: RangeKeyDict) => void;
+  onChange?: (value: RangeKeyDict) => void;
   disabledDates?: Date[];
+}
+
+export interface ErrorProps {
+  error: Error;
 }
 
 // Route Params
@@ -316,6 +334,13 @@ export interface getReservationsParams {
 
 export interface getListingsParams {
   userId?: string;
+  bathroomCount?: number;
+  roomCount?: number;
+  guestCount?: number;
+  startDate?: string;
+  endDate?: string;
+  locationValue?: string;
+  category?: string;
 }
 export interface HomePageProps {
   searchParams: getListingsParams;
