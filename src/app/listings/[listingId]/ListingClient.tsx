@@ -76,13 +76,17 @@ const ListingClient = ({
         startDate: dateRange.startDate,
         endDate: dateRange.endDate,
         listingId: listing?.id,
+        authorId: listing.user.id,
       })
       .then(() => {
         toast.success("Listing reserved!");
         setDateRange(initialDateRange);
         router.push("/trips");
       })
-      .catch(() => {
+      .catch((err) => {
+        if(err?.response?.data?.error)
+        toast.error(err?.response?.data?.error);
+        else
         toast.error("Something went wrong!");
       })
       .finally(() => {
@@ -95,7 +99,7 @@ const ListingClient = ({
     dateRange.endDate,
     totalPrice,
     listing?.id,
-    router,
+    router,listing?.user?.id
   ]);
 
   // Calculate Total pPrice

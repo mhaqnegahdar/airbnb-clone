@@ -1,5 +1,5 @@
 "use client";
-
+//Hooks/Packages
 import { useState, useCallback } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
@@ -8,11 +8,17 @@ import { Formik, Form } from "formik";
 import { signIn } from "next-auth/react";
 import { registerSchema } from "@/utils/validationSchema";
 import Input from "@/components/inputs/Input";
-import { RegisterForm } from "@/types";
+import toast from "react-hot-toast";
+
+//Redux
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { selectIsOpen, onClose } from "@/redux/modal/registerModalSlice";
 import { onOpen } from "@/redux/modal/loginModalSlice";
-import toast from "react-hot-toast";
+
+//Types
+import { RegisterForm } from "@/types";
+
+//Components
 import Heading from "../Heading";
 import Button from "../Button";
 import Modal from "./Modal";
@@ -27,8 +33,8 @@ const RegisterModal = () => {
 
   // Handle Register Toggle
   const toggle = useCallback(() => {
-    dispatch(onClose()); //Close Login Modal
-    dispatch(onOpen()); //Open Register Modal
+    dispatch(onClose()); //Close Register Modal
+    dispatch(onOpen()); //Open Login Modal
   }, [dispatch]);
 
   // Formik Functionality
@@ -51,17 +57,18 @@ const RegisterModal = () => {
     // Register User
     axios
       .post("/api/register", values)
-      .then((response) => {
+      .then(response => {
         // OnSuccess
         if (response.status == 200) {
           toast.success("You registered successfully!");
-          dispatch(onClose());
+          dispatch(onClose()); //Close Register Modal
+          dispatch(onOpen()); //Open Login Modal
         }
       })
-      .catch((error) => {
+      .catch(error => {
         //On Error
-        if (error.response.data.message) {
-          toast.error(error.response.data.message);
+        if (error.response.data.error) {
+          toast.error(error.response.data.error);
         } else {
           toast.error("Somthing went wrong");
         }

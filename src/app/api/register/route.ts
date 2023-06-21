@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     if (userExists) {
       // error response
       return NextResponse.json(
-        { message: "User already exists!" },
+        { error: "User already exists!" },
         { status: 500 }
       );
     }
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
     return NextResponse.json(user);
   } catch (error) {
     return NextResponse.json(
-      { message: "Failed to register user!" },
+      { error: "Failed to register user!" },
       { status: 500 }
     );
   }

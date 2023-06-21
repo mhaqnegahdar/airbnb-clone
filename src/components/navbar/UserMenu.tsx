@@ -81,6 +81,7 @@ const UserMenu = ({ currentUser }: NavBarProps) => {
               <MenuItem
                 label="My reservations"
                 onClick={() => {
+                  router.push("/reservations");
                   setIsOpen(false);
                 }}
               />

@@ -223,8 +223,11 @@ export interface ListingCardProps {
 
 export interface TripsClientProps {
   reservations: SafeReservation[];
-  currentUser?: SafeUser;
+  currentUser?: SafeUser | null;
 }
+
+export interface ReservationsClientProps extends TripsClientProps {}
+
 // States
 // Define a type for the slice state
 export interface ModalState {
@@ -283,6 +286,10 @@ export interface ListingIdParams {
   params: {
     listingId?: string;
   };
+}
+
+export interface ReservationIdParams {
+  params: { reservationId?: string };
 }
 
 export interface UseFavoriteParams {
