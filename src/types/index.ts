@@ -245,6 +245,8 @@ export interface FavoritesClientProps {
   currentUser?: SafeUser | null;
 }
 
+export interface PropertiesClientProps extends FavoritesClientProps {}
+
 export interface ListingClientProps {
   reservations?: SafeReservation[];
   listing: SafeListing & { user: SafeUser };
@@ -310,4 +312,11 @@ export interface getReservationsParams {
   listingId?: string;
   userId?: string;
   authorId?: string;
+}
+
+export interface getListingsParams {
+  userId?: string;
+}
+export interface HomePageProps {
+  searchParams: getListingsParams;
 }

@@ -90,6 +90,8 @@ const UserMenu = ({ currentUser }: NavBarProps) => {
               <MenuItem
                 label="My properties"
                 onClick={() => {
+                  router.push("/properties");
+
                   setIsOpen(false);
                 }}
               />
