@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import { TbPhotoPlus } from "react-icons/tb";
 // Formik
-import { Field, ErrorMessage, FieldProps, useFormikContext } from "formik";
+import { Field, ErrorMessage, useFormikContext } from "formik";
 // Types
 import { UploadImageInputProps } from "@/types";
 
@@ -20,7 +20,7 @@ const UploadImageInput = ({ name, ...rest }: UploadImageInputProps) => {
     (result: any) => {
       setFieldValue(name, result.info.secure_url);
     },
-    [setFieldValue]
+    [setFieldValue, name]
   );
 
   return (
