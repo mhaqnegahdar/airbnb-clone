@@ -75,6 +75,8 @@ const UserMenu = ({ currentUser }: NavBarProps) => {
               <MenuItem
                 label="My favorites"
                 onClick={() => {
+                  router.push("/favorites");
+
                   setIsOpen(false);
                 }}
               />

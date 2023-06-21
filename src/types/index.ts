@@ -240,6 +240,11 @@ export interface Category {
   description: string;
 }
 
+export interface FavoritesClientProps {
+  listings: SafeListing[];
+  currentUser?: SafeUser | null;
+}
+
 export interface ListingClientProps {
   reservations?: SafeReservation[];
   listing: SafeListing & { user: SafeUser };
