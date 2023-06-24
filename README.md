@@ -1,4 +1,4 @@
-# Portfolio Blog - Nextjs v13.4.1
+# Airbnb Clone - Nextjs v13.4.1
 
 This is a practical **Airbnb** Clone crud [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
