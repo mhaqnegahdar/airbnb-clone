@@ -6,11 +6,10 @@ import { format } from "date-fns";
 import Image from "next/image";
 import useCountries from "@/hooks/useCountries";
 //Types
-import {ListingCardProps} from "@/types";
+import { ListingCardProps } from "@/types";
 //Components
 import Button from "../Button";
 import HeartButton from "../HeartButton";
-
 
 const ListingCard = ({
   data,
@@ -71,6 +70,7 @@ const ListingCard = ({
             fill
             alt={"Listing"}
             className=" object-cover w-full h-full group-hover:scale-110 transition"
+            height={220}
           />
           <div className={`absolute top-3 right-3`}>
             <HeartButton listingId={data.id} currentUser={currentUser} />

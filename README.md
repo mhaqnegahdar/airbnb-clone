@@ -55,7 +55,15 @@ Starting a development instance of the app
 ```shell
 npm install
 
+npx prisma push
+
 npm run dev
+```
+
+###### deployment command on vercel
+
+```shell
+npm run vercel-build
 ```
 
 ## Screenshots
