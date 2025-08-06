@@ -82,13 +82,13 @@ const RentModal = () => {
   };
 
   const onBack = useCallback(() => {
-    setStep(val => val - 1);
+    setStep((val) => val - 1);
   }, []);
 
   const onNext = useCallback(async () => {
     let stepError = await checkStepError(step);
     if (!stepError) {
-      setStep(val => val + 1);
+      setStep((val) => val + 1);
     }
   }, [step]);
 
@@ -161,7 +161,7 @@ const RentModal = () => {
 
     axios
       .post(`/api/listings`, values)
-      .then(response => {
+      .then((response) => {
         if (response.status == 200) {
           toast.success("Listing Created!");
           router.push("/");
@@ -170,7 +170,7 @@ const RentModal = () => {
           dispatch(onClose());
         }
       })
-      .catch(error => {
+      .catch((error) => {
         toast.error("Somthing went wrong!");
       })
       .finally(() => {

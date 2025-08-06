@@ -5,9 +5,9 @@ const Footer = () => {
       &copy;{new Date().getFullYear()}{" "}
       <Link
         className="hover:text-blue-600 transition"
-        href={`https://github.com/maxjn`}
+        href={`https://github.com/mhaqnegahdar`}
       >
-        Mohamad Haqnegahdar (Maxjn)
+        Mohamad Haqnegahdar
       </Link>
     </footer>
   );
